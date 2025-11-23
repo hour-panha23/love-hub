@@ -1,5 +1,9 @@
 name: Deploy Next.js to GitHub Pages
 
+permissions:
+  contents: write
+  pages: write
+
 on:
   push:
     branches:
@@ -10,8 +14,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout repo
+      # 1. Checkout repo (ensure actions can push)
       - uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+          fetch-depth: 0
 
       # 2. Setup Node.js
       - uses: actions/setup-node@v3
