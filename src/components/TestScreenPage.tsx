@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-export default function StoryTimeline() {
+export default function TestScreenPage() {
   const data = [
     {
       id: 1,
@@ -30,49 +30,58 @@ export default function StoryTimeline() {
   return (
     <div className="px-4 pt-6 relative">
       {/* Vertical Timeline Line */}
-      <div className="absolute left-5 top-0 bottom-0 w-[2px] bg-pink-300"></div>
+      <div className="absolute left-5 top-0 bottom-0 w-0.5 bg-pink-300"></div>
 
       <div className="flex flex-col gap-8">
         {data.map((item) => (
-          <Link key={item.id} href={`/story/${item.id}`}>
-            <div className="flex items-start gap-4">
-              {/* Dot */}
-              <div className="mt-2 w-4 h-4 bg-pink-500 rounded-full"></div>
+          <Link
+            key={item.id}
+            href={`/story/${item.id}`}
+            className="flex items-start gap-4"
+          >
+            {/* Dot */}
+            <div className="mt-2 w-4 h-4 bg-pink-500 rounded-full"></div>
 
-              {/* Card */}
-              <div className="flex-1 bg-white rounded-2xl shadow-md p-3">
-                {/* Date */}
-                <p className="text-xs text-gray-400 mb-2">
-                  {new Date(item.date).toDateString()}
-                </p>
+            {/* Card */}
+            <div className="flex-1 bg-white rounded-2xl shadow-md p-3">
+              {/* Date */}
+              <p className="text-xs text-gray-400 mb-2">
+                {new Date(item.date).toDateString()}
+              </p>
 
-                {/* Slideshow */}
-                <Swiper
-                  spaceBetween={10}
-                  className="rounded-xl overflow-hidden"
-                >
-                  {item.media.map((m, index) => (
-                    <SwiperSlide key={index}>
-                      {m.type === "image" ? (
-                        <img src={m.src} className="w-full h-48 object-cover" />
-                      ) : (
-                        <video
-                          src={m.src}
-                          className="w-full h-48 object-cover"
-                          muted
-                          autoPlay
-                          loop
-                        />
-                      )}
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
+              {/* Slideshow (demo) */}
+              <Swiper
+                spaceBetween={10}
+                slidesPerView={1}
+                loop={false}
+                className="rounded-xl overflow-hidden"
+                aria-label={`media slideshow for story ${item.id}`}
+              >
+                {item.media.map((m, index) => (
+                  <SwiperSlide key={index}>
+                    {m.type === "image" ? (
+                      <img
+                        src={m.src}
+                        alt={item.caption ?? `media-${index}`}
+                        className="w-full h-48 object-cover"
+                      />
+                    ) : (
+                      <video
+                        src={m.src}
+                        className="w-full h-48 object-cover"
+                        muted
+                        autoPlay
+                        loop
+                      />
+                    )}
+                  </SwiperSlide>
+                ))}
+              </Swiper>
 
-                {/* Caption */}
-                <p className="text-sm text-gray-700 mt-3 line-clamp-2">
-                  {item.caption}
-                </p>
-              </div>
+              {/* Caption */}
+              <p className="text-sm text-gray-700 mt-3 line-clamp-2">
+                {item.caption}
+              </p>
             </div>
           </Link>
         ))}

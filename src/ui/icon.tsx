@@ -1,7 +1,16 @@
-import { forwardRef } from "react";
+import React, { forwardRef } from "react";
+
+export type SVGIconProps = React.SVGProps<SVGSVGElement> & {
+  size?: number | string;
+  color?: string;
+  strokeWidth?: number | string;
+  className?: string;
+};
 
 export const iconify =
-  (svgChildren) =>
+  (
+    svgChildren: React.ReactNode
+  ): React.ForwardRefRenderFunction<SVGSVGElement, SVGIconProps> =>
   (
     {
       size = 24,
@@ -9,8 +18,8 @@ export const iconify =
       strokeWidth = 1.5,
       className = "",
       ...props
-    },
-    ref
+    }: SVGIconProps,
+    ref: React.ForwardedRef<SVGSVGElement>
   ) => {
     return (
       <svg
@@ -145,9 +154,12 @@ export const icons = {
   setting: SettingIcon,
 };
 
-export const Icon = ({ name, ...props }) => {
-  const Component = icons[name];
+export type IconName = keyof typeof icons;
+
+export const Icon = ({ name, ...props }: { name?: string } & SVGIconProps) => {
+  const Component = name ? icons[name as keyof typeof icons] : undefined;
   if (!Component) return null;
+  // forward the props down to the underlying svg component
   return <Component {...props} />;
 };
 
