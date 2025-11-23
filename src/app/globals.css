@@ -1,26 +1,55 @@
+/* Google font import MUST be first */
+/* @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap'); */
+
+/* Tailwind directives - v4-compatible imports */
+/* @import "tailwindcss/preflight";
+@import "tailwindcss/utilities"; */
+
+
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #020617;
+    --foreground: #f8fafc;
+  }
+} */
+
+/* .love-font {
+  font-family: 'Dancing Script', cursive;
+} */
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+.love-font {
+  font-family: 'Dancing Script', cursive;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.custom-scrollbar {
+  /* Hide native scrollbars but keep scrolling behavior */
+  -ms-overflow-style: none;
+  /* IE and Edge */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@supports (scrollbar-width: none) {
+  .custom-scrollbar {
+    /* Firefox */
+    scrollbar-width: none;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* WebKit browsers */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* Optional: provide a tiny, invisible track and thumb so styles don't show */
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 0;
 }
